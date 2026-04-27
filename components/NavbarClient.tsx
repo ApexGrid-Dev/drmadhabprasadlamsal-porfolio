@@ -24,7 +24,7 @@ export default function NavbarClient({ routing }: NavbarClientProps) {
     if (id === 'home') return '/'
     if (id === 'blog') return '/blog'
     
-    // On blog path, we need absolute-like paths to hashes on home
+    // On blog path, we need to point back to homepage hashes
     if (isBlogPath) {
       return `/#${id}`
     }
