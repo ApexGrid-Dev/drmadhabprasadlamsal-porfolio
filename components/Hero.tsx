@@ -1,68 +1,79 @@
+'use client'
+
 import Image from 'next/image'
 import Link from 'next/link'
+import { Star, ChevronRight, Quote } from 'lucide-react'
+import { motion } from 'framer-motion'
 
 export default function Hero() {
   return (
-    <section className="relative pt-32 pb-20 lg:pt-48 lg:pb-32 overflow-hidden">
-      <div className="absolute inset-0 bg-primary/20 -z-10 clip-path-hero"></div>
-      
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
-        <div className="lg:grid lg:grid-cols-2 lg:gap-8 items-center">
-          <div className="mb-12 lg:mb-0">
-            <div className="inline-flex items-center space-x-2 text-dark font-medium mb-6">
-              <span className="w-8 h-px bg-dark"></span>
-              <span className="uppercase tracking-wider text-sm">Dr. Madhab Prasad Lamsal</span>
+    <section className="relative pt-48 pb-24 overflow-hidden bg-white">
+      {/* Background Decor */}
+      <div className="absolute top-40 -left-20 w-64 h-64 bg-primary/10 rounded-full blur-3xl opacity-60"></div>
+      <div className="absolute top-20 -right-20 w-96 h-96 bg-primary/5 rounded-full blur-3xl opacity-60"></div>
+
+      <div className="max-w-7xl mx-auto px-4 relative z-10">
+        {/* Top Text Content */}
+        <div className="text-center mb-16 relative">
+          <motion.h1 
+            initial={{ opacity: 0, y: 30 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.6 }}
+            className="text-5xl md:text-7xl font-bold text-dark leading-[1.1] tracking-tight mt-12"
+          >
+            I'm <span className="text-primary">Madhab Prasad Lamsal,</span> <br />
+            Neurology Specialist
+          </motion.h1>
+        </div>
+
+        {/* Main Content Grid */}
+        <div className="grid grid-cols-1 lg:grid-cols-3 items-center gap-12">
+          {/* Left Side: Quote */}
+          <div className="order-2 lg:order-1 flex flex-col items-center lg:items-start text-center lg:text-left">
+            <div className="text-primary mb-4">
+              <Quote size={40} fill="currentColor" />
             </div>
-            
-            <h1 className="text-5xl lg:text-7xl font-bold tracking-tight text-dark mb-6 leading-tight">
-              27+ Years of <br />
-              <span className="text-gray-800">Neurology Excellence.</span>
-            </h1>
-            
-            <p className="text-lg text-gray-700 mb-8 max-w-lg leading-relaxed">
-              Dedicated to providing comprehensive neurological care with compassion and expertise. Specializing in advanced treatments and patient-centered approaches.
+            <p className="text-gray-700 text-lg leading-relaxed max-w-xs font-medium">
+              Providing comprehensive neurological care with 27+ years of clinical expertise and dedicated patient service.
             </p>
-            
-            <div className="flex flex-col sm:flex-row space-y-4 sm:space-y-0 sm:space-x-4">
-              <Link href="#about" className="px-8 py-4 bg-primary text-dark font-semibold rounded-sm hover:-translate-y-1 transition-transform shadow-md text-center">
-                Learn About Me
-              </Link>
-              <Link href="#testimonials" className="px-8 py-4 bg-white border border-gray-200 text-dark font-medium rounded-sm hover:border-gray-300 hover:shadow-sm transition-all text-center">
-                Patient Success Stories
-              </Link>
+            {/* Hand-drawn curves decoration */}
+            <div className="mt-8 hidden lg:block">
+              <svg className="w-20 h-20 text-primary opacity-40 translate-x-4" viewBox="0 0 100 100">
+                 <path d="M10,20 C30,10 60,30 90,20" fill="none" stroke="currentColor" strokeWidth="3" strokeLinecap="round" />
+                 <path d="M15,40 C35,30 65,50 95,40" fill="none" stroke="currentColor" strokeWidth="3" strokeLinecap="round" />
+                 <path d="M10,60 C30,50 60,70 90,60" fill="none" stroke="currentColor" strokeWidth="3" strokeLinecap="round" />
+              </svg>
             </div>
           </div>
-          
-          <div className="relative">
-            <div className="relative w-full aspect-[4/5] bg-primary/10 rounded-2xl overflow-hidden pb-0 px-4 pt-4">
+
+          {/* Center: Image */}
+          <div className="order-1 lg:order-2 relative flex justify-center">
+            {/* Cyan Backdrop Arc */}
+            <div className="absolute bottom-0 w-80 h-80 md:w-[600px] md:h-[600px] bg-primary rounded-full translate-y-1/3"></div>
+            
+            <div className="relative w-72 h-96 md:w-[500px] md:h-[650px] z-10 transition-transform hover:scale-[1.02] duration-500">
                <Image
-                 src="/doctor.png"
-                 alt="Dr. Madhab Prasad Lamsal"
+                 src="/madhab_v2.png"
+                 alt="Madhab Prasad Lamsal"
                  fill
-                 className="object-contain object-bottom"
+                 className="object-contain object-bottom drop-shadow-2xl"
                  priority
                />
             </div>
-            
-            {/* Floating badge */}
-            <div className="absolute -bottom-6 -left-6 bg-white p-6 rounded-xl shadow-lg border border-gray-100 flex items-center space-x-4">
-              <div className="bg-primary/20 p-3 rounded-full">
-                <svg className="w-6 h-6 text-yellow-600" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M9 12l2 2 4-4M7.835 4.697a3.42 3.42 0 001.946-.806 3.42 3.42 0 014.438 0 3.42 3.42 0 001.946.806 3.42 3.42 0 013.138 3.138 3.42 3.42 0 00.806 1.946 3.42 3.42 0 010 4.438 3.42 3.42 0 00-.806 1.946 3.42 3.42 0 01-3.138 3.138 3.42 3.42 0 00-1.946.806 3.42 3.42 0 01-4.438 0 3.42 3.42 0 00-1.946-.806 3.42 3.42 0 01-3.138-3.138 3.42 3.42 0 00-.806-1.946 3.42 3.42 0 010-4.438 3.42 3.42 0 00.806-1.946 3.42 3.42 0 013.138-3.138z"></path></svg>
-              </div>
-              <div>
-                <p className="text-sm text-gray-500 font-medium">Board Certified</p>
-                <p className="font-bold text-dark">Senior Neurologist</p>
-              </div>
+          </div>
+
+          {/* Right Side: Stats */}
+          <div className="order-3 lg:order-3 flex flex-col items-center lg:items-end text-center lg:text-right">
+            <div className="flex gap-1 mb-2">
+              {[...Array(5)].map((_, i) => (
+                <Star key={i} size={24} fill="#FFC107" color="#FFC107" />
+              ))}
             </div>
+            <h2 className="text-4xl md:text-5xl font-black text-dark mb-1">27+ Years</h2>
+            <p className="text-gray-500 font-bold uppercase tracking-widest text-xs">Experience</p>
           </div>
         </div>
       </div>
-      
-      <style>{`
-        .clip-path-hero {
-          clip-path: polygon(0 0, 100% 0, 100% 85%, 0% 100%);
-        }
-      `}</style>
     </section>
   )
 }

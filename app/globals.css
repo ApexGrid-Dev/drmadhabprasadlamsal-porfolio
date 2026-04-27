@@ -2,11 +2,13 @@
 @plugin "@tailwindcss/typography";
 
 @theme {
-  --color-primary: #fcee50;
-  --color-dark: #1a1a1a;
-  --color-surface: #fdfdfd;
+  --color-primary: #17C2EC;
+  --color-dark: #111111;
+  --color-surface: #ffffff;
+  --color-accent: #fcee50;
 
-  --font-sans: "Avenir Next", "Segoe UI", "Helvetica Neue", Arial, sans-serif;
+  --font-sans: var(--font-outfit), "Inter", sans-serif;
+  --font-display: var(--font-playfair), serif;
 }
 
 :root {
