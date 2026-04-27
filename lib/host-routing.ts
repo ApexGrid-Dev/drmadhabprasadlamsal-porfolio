@@ -52,9 +52,9 @@ export async function getHostRouting() {
     isBlogHost,
     blogUrl,
     siteUrl,
-    articlesHref: isBlogHost ? '/' : (blogUrl ?? '/blog'),
-    homeHref: isBlogHost ? (siteUrl ?? '/') : '/',
-    blogPostHref: (slug: string) => (isBlogHost ? `/${slug}` : `/blog/${slug}`),
-    blogIndexHref: isBlogHost ? '/' : '/blog',
+    articlesHref: '/blog',
+    homeHref: '/',
+    blogPostHref: (slug: string) => `/blog/${slug}`,
+    blogIndexHref: '/blog',
   }
 }
