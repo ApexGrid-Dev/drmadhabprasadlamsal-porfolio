@@ -3,7 +3,11 @@ import StudioApp from '@/components/StudioApp'
 export const dynamic = 'force-dynamic'
 
 export default function StudioPage() {
-  if (!process.env.NEXT_PUBLIC_SANITY_PROJECT_ID || !process.env.NEXT_PUBLIC_SANITY_DATASET) {
+  const projectId = process.env.NEXT_PUBLIC_SANITY_PROJECT_ID
+  const dataset = process.env.NEXT_PUBLIC_SANITY_DATASET
+  const hasInvalidProjectId = !projectId || projectId === 'your-sanity-project-id' || projectId === 'your-project-id'
+
+  if (hasInvalidProjectId || !dataset) {
     return (
       <main className="min-h-screen bg-surface px-6 py-16 text-dark">
         <div className="mx-auto max-w-2xl rounded-2xl border border-gray-200 bg-white p-8 shadow-sm">
