@@ -40,6 +40,14 @@ Thumbs.db
 *.swp
 *.swo
 
+# Local tooling
+.codex
+.codex/
+
+# Caches
+.cache/
+.eslintcache
+
 # Vercel
 .vercel
 

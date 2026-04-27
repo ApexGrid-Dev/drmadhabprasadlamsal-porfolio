@@ -1,0 +1,55 @@
+@import "tailwindcss";
+@plugin "@tailwindcss/typography";
+
+@theme {
+  --color-primary: #fcee50;
+  --color-dark: #1a1a1a;
+  --color-surface: #fdfdfd;
+
+  --font-sans: "Avenir Next", "Segoe UI", "Helvetica Neue", Arial, sans-serif;
+}
+
+:root {
+  --background: #fdfdfd;
+  --foreground: #1a1a1a;
+}
+
+@media (prefers-color-scheme: dark) {
+  :root {
+    --background: #111827;
+    --foreground: #fdfdfd;
+  }
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  margin: 0;
+  min-height: 100vh;
+  color: var(--foreground);
+  background: var(--background);
+  font-family: var(--font-sans);
+}
+
+@utility text-balance {
+  text-wrap: balance;
+}
+
+@utility prose-yellow {
+  --tw-prose-links: var(--color-dark);
+  --tw-prose-bold: var(--color-dark);
+  --tw-prose-headings: var(--color-dark);
+  --tw-prose-bullets: color-mix(in srgb, var(--color-primary) 70%, #000 30%);
+  --tw-prose-counters: var(--color-dark);
+  --tw-prose-quotes: var(--color-dark);
+  --tw-prose-quote-borders: color-mix(in srgb, var(--color-primary) 70%, white 30%);
+  --tw-prose-hr: #e5e7eb;
+  --tw-prose-captions: #6b7280;
+  --tw-prose-code: var(--color-dark);
+  --tw-prose-pre-code: #f9fafb;
+  --tw-prose-pre-bg: #111827;
+  --tw-prose-th-borders: #e5e7eb;
+  --tw-prose-td-borders: #f3f4f6;
+}
