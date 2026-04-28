@@ -2,6 +2,7 @@
 
 import { useEffect, useState } from 'react'
 import Link from 'next/link'
+import { usePathname } from 'next/navigation'
 import { motion, AnimatePresence } from 'framer-motion'
 import { Stethoscope } from 'lucide-react'
 
@@ -23,19 +24,20 @@ interface NavbarClientProps {
 }
 
 export default function NavbarClient({ routing }: NavbarClientProps) {
-  const [activeSection, setActiveSection] = useState(routing.isBlogHost ? 'blog' : 'home')
+  const pathname = usePathname()
+  const isBlogPath = pathname?.startsWith('/blog')
+  const [activeSection, setActiveSection] = useState(isBlogPath ? 'blog' : 'home')
   const [isScrolled, setIsScrolled] = useState(false)
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false)
   const [navCompactness, setNavCompactness] = useState(0)
 
   const getHref = (id: string) => {
-    if (id === 'home') return routing.homeHref
-    if (id === 'blog') return routing.articlesHref
+    if (id === 'home') return '/'
+    if (id === 'blog') return '/blog'
     
-    // On blog subdomain, we need absolute URLs to the main site for hashes
-    if (routing.isBlogHost) {
-      const siteUrl = routing.homeHref.endsWith('/') ? routing.homeHref : `${routing.homeHref}/`
-      return `${siteUrl}#${id}`
+    // On blog path, we need to point back to homepage hashes
+    if (isBlogPath) {
+      return `/#${id}`
     }
     
     return `#${id}`

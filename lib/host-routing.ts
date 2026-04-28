@@ -27,8 +27,14 @@ export async function getHostRouting() {
   const protocol = forwardedProto ?? (hostHeader.includes('localhost') ? 'http' : 'https')
   const currentPort = hostHeader.includes(':') ? `:${hostHeader.split(':')[1]}` : ''
   const currentHost = stripPort(hostHeader)
-  const blogHosts = getConfiguredBlogHosts()
-  const isBlogHost = blogHosts.includes(currentHost)
+  const envBlogHosts = process.env.BLOG_HOSTNAMES?.split(',').map(h => h.trim().toLowerCase()).filter(Boolean)
+  
+  // If explicitly configured, use those. Otherwise, derive from current host.
+  const blogHosts = envBlogHosts && envBlogHosts.length > 0 
+    ? envBlogHosts 
+    : [currentHost.startsWith('www.') ? `blog.${currentHost.slice(4)}` : `blog.${currentHost}`, 'blog.localhost']
+
+  const isBlogHost = blogHosts.some(host => currentHost === host || currentHost === `www.${host}`)
   const fallbackBlogHost = blogHosts[0]
   const siteHost = deriveSiteHostFromBlogHost(currentHost || fallbackBlogHost)
 
@@ -46,9 +52,9 @@ export async function getHostRouting() {
     isBlogHost,
     blogUrl,
     siteUrl,
-    articlesHref: isBlogHost ? '/' : (blogUrl ?? '/blog'),
-    homeHref: isBlogHost ? (siteUrl ?? '/') : '/',
-    blogPostHref: (slug: string) => (isBlogHost ? `/${slug}` : `/blog/${slug}`),
-    blogIndexHref: isBlogHost ? '/' : '/blog',
+    articlesHref: '/blog',
+    homeHref: '/',
+    blogPostHref: (slug: string) => `/blog/${slug}`,
+    blogIndexHref: '/blog',
   }
 }
