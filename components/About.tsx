@@ -7,10 +7,9 @@ export default function About() {
       <div className="bg-white rounded-2xl shadow-sm border border-gray-100 p-8 md:p-12">
         <div className="grid md:grid-cols-2 gap-12 items-center">
           <div>
-            <div className="flex items-center space-x-6 mb-8">
-              <div className="w-24 h-24 rounded-full bg-gray-200 overflow-hidden relative border-4 border-white shadow-md">
-                {/* Avatar Image Placeholder */}
-                <div className="w-full h-full bg-gray-300 flex items-center justify-center">
+            <div className="mb-8 flex flex-col items-center text-center md:flex-row md:items-center md:space-x-6 md:text-left">
+              <div className="relative mb-6 h-28 w-28 overflow-hidden rounded-full border-4 border-white bg-gray-200 shadow-md md:mb-0">
+                <div className="flex h-full w-full items-center justify-center bg-gray-300">
                   <span className="text-xs text-gray-500">Avatar</span>
                 </div>
               </div>
@@ -36,13 +35,30 @@ export default function About() {
             </div>
           </div>
           
-          <div className="bg-gray-50 rounded-xl p-8 border border-gray-100">
-            <h3 className="text-sm font-bold text-gray-400 uppercase tracking-widest mb-6">Featured By</h3>
-            <div className="grid grid-cols-2 gap-8 items-center opacity-70">
-              <div className="h-12 bg-gray-200 rounded flex items-center justify-center"><span className="text-xs font-bold text-gray-400">Hospital A</span></div>
-              <div className="h-12 bg-gray-200 rounded flex items-center justify-center"><span className="text-xs font-bold text-gray-400">Medical Center</span></div>
-              <div className="h-12 bg-gray-200 rounded flex items-center justify-center"><span className="text-xs font-bold text-gray-400">Clinic B</span></div>
-              <div className="h-12 bg-gray-200 rounded flex items-center justify-center"><span className="text-xs font-bold text-gray-400">Institute</span></div>
+          <div className="rounded-xl border border-gray-100 bg-gray-50 p-8">
+            <h3 className="mb-6 text-sm font-bold uppercase tracking-widest text-gray-400">Awards & Recognition</h3>
+            <div className="space-y-4">
+              <div className="rounded-2xl border border-gray-100 bg-white p-5 shadow-sm">
+                <p className="text-xs font-bold uppercase tracking-[0.3em] text-primary">Board Certification</p>
+                <h4 className="mt-2 text-lg font-bold text-dark">Certified Specialist in Neurology</h4>
+                <p className="mt-2 text-sm leading-6 text-gray-500">
+                  Recognized for advanced neurological expertise, diagnostic precision, and sustained clinical excellence.
+                </p>
+              </div>
+              <div className="rounded-2xl border border-gray-100 bg-white p-5 shadow-sm">
+                <p className="text-xs font-bold uppercase tracking-[0.3em] text-primary">Clinical Recognition</p>
+                <h4 className="mt-2 text-lg font-bold text-dark">Excellence in Patient-Centered Care</h4>
+                <p className="mt-2 text-sm leading-6 text-gray-500">
+                  Honored for combining evidence-based treatment with compassionate, personalized neurological care.
+                </p>
+              </div>
+              <div className="rounded-2xl border border-gray-100 bg-white p-5 shadow-sm">
+                <p className="text-xs font-bold uppercase tracking-[0.3em] text-primary">Academic Contribution</p>
+                <h4 className="mt-2 text-lg font-bold text-dark">Research & Teaching Distinction</h4>
+                <p className="mt-2 text-sm leading-6 text-gray-500">
+                  Acknowledged for mentoring clinicians and contributing to ongoing progress in neurology research and education.
+                </p>
+              </div>
             </div>
           </div>
         </div>
