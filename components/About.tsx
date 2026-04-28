@@ -15,12 +15,12 @@ export default function About() {
               </div>
               <div>
                 <h2 className="text-3xl font-bold text-dark">Hello, I&apos;m Dr. Lamsal.</h2>
-                <p className="text-primary font-medium text-lg mt-1">Neurologist Specialist</p>
+                <p className="text-primary font-medium text-lg mt-1">Public Health Consultant</p>
               </div>
             </div>
             
             <p className="text-gray-600 leading-relaxed mb-8">
-              With over 27 years of clinical experience, I have dedicated my career to understanding and treating complex neurological disorders. My approach combines the latest medical advancements with a deep commitment to compassionate patient care. Every patient&apos;s journey is unique, and I strive to provide personalized treatment plans that improve quality of life.
+              With over 50 years of clinical experience, I have dedicated my career to understanding and treating complex health conditions. My approach combines the latest medical advancements with a deep commitment to compassionate client care. Every client&apos;s journey is unique, and I strive to provide personalized treatment plans that improve quality of life.
             </p>
             
             <div className="flex flex-col sm:flex-row space-y-4 sm:space-y-0 sm:space-x-4">

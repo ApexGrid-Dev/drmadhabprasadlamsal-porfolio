@@ -41,27 +41,6 @@ const education = [
   },
 ]
 
-const awards = [
-  {
-    title: 'Lasker Award',
-    detail: 'For outstanding clinical research in neurodegenerative delay techniques.',
-    icon: (
-      <svg className="h-6 w-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M5 3v4M3 5h4M6 17v4m-2-2h4m5-16l2.286 6.857L21 12l-5.714 2.143L13 21l-2.286-6.857L5 12l5.714-2.143L13 3z"></path>
-      </svg>
-    ),
-  },
-  {
-    title: 'Maxwell Excellence Fellowship',
-    detail: 'Recognized for continuous contribution to international healthcare.',
-    icon: (
-      <svg className="h-6 w-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M12 8c-1.657 0-3 .895-3 2s1.343 2 3 2 3 .895 3 2-1.343 2-3 2m0-8c1.11 0 2.08.402 2.599 1M12 8V7m0 1v8m0 0v1m0-1c-1.11 0-2.08-.402-2.599-1M21 12a9 9 0 11-18 0 9 9 0 0118 0z"></path>
-      </svg>
-    ),
-  },
-]
-
 export default function Experience() {
   return (
     <section className="w-full bg-white">
@@ -131,7 +110,7 @@ export default function Experience() {
       </div>
 
       <div className="mt-20 border-t border-gray-100 pt-20">
-        <div className="grid gap-10 md:grid-cols-2 md:gap-16">
+        <div className="grid gap-10 md:gap-16">
           <motion.div
             id="education"
             initial={{ opacity: 0, x: -36 }}
@@ -139,7 +118,7 @@ export default function Experience() {
             viewport={{ once: true, amount: 0.25 }}
             transition={{ duration: 0.55, ease: 'easeOut' }}
           >
-            <h3 className="mb-8 flex items-center text-2xl font-bold">
+            <h3 className="mb-8 flex items-center text-2xl font-bold text-dark">
               <span className="mr-4 inline-block h-px w-8 bg-primary"></span>
               Education
             </h3>
@@ -184,38 +163,6 @@ export default function Experience() {
                       <p className="mb-3 mt-2 text-sm font-semibold uppercase tracking-[0.22em] text-primary">{item.school}</p>
                       <p className="max-w-lg text-sm leading-7 text-gray-500">{item.detail}</p>
                     </div>
-                  </div>
-                </motion.div>
-              ))}
-            </div>
-          </motion.div>
-
-          <motion.div
-            initial={{ opacity: 0, x: 36 }}
-            whileInView={{ opacity: 1, x: 0 }}
-            viewport={{ once: true, amount: 0.25 }}
-            transition={{ duration: 0.55, ease: 'easeOut', delay: 0.08 }}
-          >
-            <h3 className="mb-8 flex items-center text-2xl font-bold">
-              <span className="mr-4 inline-block h-px w-8 bg-primary"></span>
-              Awards & Recognition
-            </h3>
-            <div className="space-y-6">
-              {awards.map((award, index) => (
-                <motion.div
-                  key={award.title}
-                  initial={{ opacity: 0, y: 24 }}
-                  whileInView={{ opacity: 1, y: 0 }}
-                  viewport={{ once: true, amount: 0.35 }}
-                  transition={{ duration: 0.45, delay: index * 0.08 + 0.08 }}
-                  className="flex items-start gap-4 rounded-[1.5rem] border border-gray-100 bg-white p-5 shadow-[0_12px_40px_rgba(15,23,42,0.06)]"
-                >
-                  <div className="flex h-12 w-12 flex-shrink-0 items-center justify-center rounded-xl bg-yellow-50 text-yellow-600">
-                    {award.icon}
-                  </div>
-                  <div>
-                    <h4 className="font-bold text-dark">{award.title}</h4>
-                    <p className="text-sm text-gray-500">{award.detail}</p>
                   </div>
                 </motion.div>
               ))}

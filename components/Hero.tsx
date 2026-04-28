@@ -1,11 +1,58 @@
 'use client'
 
+import { useEffect, useState } from 'react'
 import Image from 'next/image'
-import Link from 'next/link'
-import { Star, ChevronRight, Quote } from 'lucide-react'
+import { Star, Quote } from 'lucide-react'
 import { motion } from 'framer-motion'
 
+const PROFESSIONS = [
+  'Public Health & Medical Doctor',
+  'Health Activist',
+  'Social Worker',
+  'Farmer',
+  'Tinpuste Activist',
+]
+
 export default function Hero() {
+  const [displayedProfession, setDisplayedProfession] = useState('')
+  const [isDeleting, setIsDeleting] = useState(false)
+  const [professionIndex, setProfessionIndex] = useState(0)
+  const [isWaitingAtEnd, setIsWaitingAtEnd] = useState(false)
+
+  useEffect(() => {
+    const currentProfession = PROFESSIONS[professionIndex]
+    const typingDelay = isDeleting ? 40 : 85
+    const pauseDelay = 1100
+
+    const timeout = window.setTimeout(() => {
+      if (isWaitingAtEnd) {
+        setIsWaitingAtEnd(false)
+        setIsDeleting(true)
+        return
+      }
+
+      if (!isDeleting) {
+        const nextValue = currentProfession.slice(0, displayedProfession.length + 1)
+        setDisplayedProfession(nextValue)
+
+        if (nextValue === currentProfession) {
+          setIsWaitingAtEnd(true)
+        }
+        return
+      }
+
+      const nextValue = currentProfession.slice(0, Math.max(displayedProfession.length - 1, 0))
+      setDisplayedProfession(nextValue)
+
+      if (nextValue.length === 0) {
+        setIsDeleting(false)
+        setProfessionIndex((currentIndex) => (currentIndex + 1) % PROFESSIONS.length)
+      }
+    }, isWaitingAtEnd ? pauseDelay : typingDelay)
+
+    return () => window.clearTimeout(timeout)
+  }, [displayedProfession, isDeleting, isWaitingAtEnd, professionIndex])
+
   return (
     <section className="relative pt-48 pb-24 overflow-hidden bg-white">
       {/* Background Decor */}
@@ -22,7 +69,10 @@ export default function Hero() {
             className="text-5xl md:text-7xl font-bold text-dark leading-[1.1] tracking-tight mt-12"
           >
             I'm <span className="text-primary">Madhab Prasad Lamsal,</span> <br />
-            Neurology Specialist
+            <span className="inline-block min-h-[2.4em] md:min-h-[2.2em]">
+              {displayedProfession}
+              <span className="animate-pulse text-primary">|</span>
+            </span>
           </motion.h1>
         </div>
 
@@ -34,7 +84,7 @@ export default function Hero() {
               <Quote size={40} fill="currentColor" />
             </div>
             <p className="text-gray-700 text-lg leading-relaxed max-w-xs font-medium">
-              Providing comprehensive neurological care with 27+ years of clinical expertise and dedicated patient service.
+              Providing comprehensive health care with 50+ years of clinical expertise and dedicated client service.
             </p>
             {/* Hand-drawn curves decoration */}
             <div className="mt-8 hidden lg:block">
@@ -69,7 +119,7 @@ export default function Hero() {
                 <Star key={i} size={24} fill="#FFC107" color="#FFC107" />
               ))}
             </div>
-            <h2 className="text-4xl md:text-5xl font-black text-dark mb-1">27+ Years</h2>
+            <h2 className="text-4xl md:text-5xl font-black text-dark mb-1">50+ Years</h2>
             <p className="text-gray-500 font-bold uppercase tracking-widest text-xs">Experience</p>
           </div>
         </div>
