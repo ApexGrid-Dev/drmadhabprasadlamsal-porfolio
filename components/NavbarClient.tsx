@@ -26,14 +26,16 @@ interface NavbarClientProps {
 export default function NavbarClient({ routing }: NavbarClientProps) {
   const pathname = usePathname()
   const isBlogPath = pathname?.startsWith('/blog')
+  const isTinpustePath = pathname?.startsWith('/tinpuste')
   const [activeSection, setActiveSection] = useState(isBlogPath ? 'blog' : 'home')
   const [isScrolled, setIsScrolled] = useState(false)
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false)
   const [navCompactness, setNavCompactness] = useState(0)
 
   const getHref = (id: string) => {
-    if (id === 'home') return '/'
-    if (id === 'blog') return '/blog'
+    if (id === 'home') return routing.homeHref
+    if (id === 'blog') return routing.articlesHref
+    if (id === 'tinpuste') return '/tinpuste'
     
     // On blog path, we need to point back to homepage hashes
     if (isBlogPath) {
@@ -44,6 +46,11 @@ export default function NavbarClient({ routing }: NavbarClientProps) {
   }
 
   useEffect(() => {
+    if (isTinpustePath) {
+      setActiveSection('tinpuste')
+      return
+    }
+
     if (routing.isBlogHost) {
       setActiveSection('blog')
       return
@@ -119,7 +126,7 @@ export default function NavbarClient({ routing }: NavbarClientProps) {
       window.removeEventListener('resize', handleScroll)
       window.removeEventListener('hashchange', handleScroll)
     }
-  }, [routing.isBlogHost])
+  }, [routing.isBlogHost, isTinpustePath])
 
   useEffect(() => {
     if (!isMobileMenuOpen) return
@@ -137,6 +144,7 @@ export default function NavbarClient({ routing }: NavbarClientProps) {
   }, [isMobileMenuOpen])
 
   const navLinks = [
+    { name: 'Home', href: getHref('home'), id: 'home' },
     { name: 'About', href: getHref('about'), id: 'about' },
     { name: 'Work', href: getHref('experience'), id: 'experience' },
     { name: 'Education', href: getHref('education'), id: 'education' },
@@ -145,6 +153,7 @@ export default function NavbarClient({ routing }: NavbarClientProps) {
   const rightLinks = [
     { name: 'Testimonial', href: getHref('testimonials'), id: 'testimonials' },
     { name: 'Blog', href: getHref('blog'), id: 'blog' },
+    { name: 'Tinpuste', href: getHref('tinpuste'), id: 'tinpuste' },
     { name: 'Contact', href: getHref('contact'), id: 'contact' },
   ]
   const mobileLinks = [...navLinks, ...rightLinks]
@@ -154,7 +163,7 @@ export default function NavbarClient({ routing }: NavbarClientProps) {
   const NavLink = ({ link }: { link: { name: string, href: string, id: string } }) => (
     <Link 
       href={link.href} 
-      className={`relative px-6 py-2.5 rounded-full font-bold text-sm transition-colors duration-300 ${
+      className={`relative px-4 py-2.5 rounded-full font-bold text-xs xl:px-5 xl:text-sm transition-colors duration-300 ${
         isActive(link.id) ? 'text-white' : 'text-white/60 hover:text-white'
       }`}
       onClick={() => setActiveSection(link.id)}
@@ -181,12 +190,25 @@ export default function NavbarClient({ routing }: NavbarClientProps) {
         <motion.nav
           animate={{
             y: isScrolled ? -10 : 0,
-            scale: 1.08 - navCompactness * 0.14,
+            scale: 1.02 - navCompactness * 0.08,
           }}
           transition={{ duration: 0.35, ease: 'easeOut' }}
-          className="relative flex w-full max-w-[95%] items-center gap-2 rounded-[2rem] border border-white/20 bg-black/30 px-4 py-3 shadow-[0_20px_50px_rgba(0,0,0,0.3)] backdrop-blur-3xl transition-all duration-500 hover:border-white/40 md:gap-4 md:px-6 lg:max-w-7xl"
+          className="relative flex w-full max-w-[95%] items-center gap-2 rounded-[2rem] border border-white/20 bg-black/30 px-4 py-3 shadow-[0_20px_50px_rgba(0,0,0,0.3)] backdrop-blur-3xl transition-all duration-500 hover:border-white/40 md:gap-4 md:px-6 lg:max-w-[1380px]"
         >
-          <div className="hidden items-center gap-1 lg:flex">
+          <Link
+            href={routing.homeHref}
+            onClick={() => {
+              setActiveSection('home')
+              setIsMobileMenuOpen(false)
+            }}
+            className="flex items-center mr-3 lg:mr-4"
+          >
+            <div className="flex h-10 w-10 shrink-0 items-center justify-center rounded-full bg-white/5 shadow-xl transition-all duration-300 group-hover:rotate-12">
+              <Stethoscope className="h-5 w-5 text-white" />
+            </div>
+          </Link>
+
+          <div className="hidden min-w-0 flex-1 items-center justify-start gap-1 lg:flex">
             {navLinks.map((link) => (
               <NavLink key={link.id} link={link} />
             ))}
@@ -194,45 +216,42 @@ export default function NavbarClient({ routing }: NavbarClientProps) {
 
           <Link
             href={routing.homeHref}
-            className={`group relative min-w-0 shrink rounded-full px-3 py-2.5 transition-all duration-300 sm:px-5 lg:shrink-0 lg:px-8 ${
-              isActive('home') ? 'text-white' : 'text-white hover:text-primary'
-            }`}
+            className="group relative min-w-0 shrink px-2 py-2 text-white transition-all duration-300 hover:text-primary sm:px-4 lg:mx-auto lg:shrink-0 lg:px-5"
             style={{
-              paddingTop: `${0.625 + (1 - navCompactness) * 0.2}rem`,
-              paddingBottom: `${0.625 + (1 - navCompactness) * 0.2}rem`,
+              paddingTop: `${0.5 + (1 - navCompactness) * 0.15}rem`,
+              paddingBottom: `${0.5 + (1 - navCompactness) * 0.15}rem`,
             }}
             onClick={() => {
               setActiveSection('home')
               setIsMobileMenuOpen(false)
             }}
           >
-            {isActive('home') && (
-              <motion.div
-                layoutId="activePill"
-                className="absolute inset-0 hidden lg:block rounded-full bg-primary shadow-lg shadow-primary/30"
-                transition={{ duration: 0.24, ease: [0.22, 1, 0.36, 1] }}
-              />
-            )}
             <span className="relative z-10 flex items-center gap-3">
-              <div
-                className={`flex h-10 w-10 shrink-0 items-center justify-center rounded-full shadow-xl transition-all duration-300 group-hover:rotate-12 group-active:scale-95 ${
-                  isActive('home') ? 'bg-primary shadow-primary/20 lg:bg-white/15 lg:shadow-white/10' : 'bg-primary shadow-primary/20'
-                }`}
-              >
-                <Stethoscope className="h-6 w-6 text-white" />
-              </div>
-              <span className="min-w-0 font-display text-base leading-tight tracking-tight sm:text-lg lg:text-2xl">
+              <span className="min-w-0 font-display text-base leading-tight tracking-tight sm:text-lg lg:text-[1.35rem]">
                 <span className="font-medium italic">DR.</span>{' '}
                 <span className="font-black uppercase">Madhab Prasad Lamsal</span>
               </span>
             </span>
           </Link>
 
-          <div className="hidden items-center gap-1 lg:flex">
+          <div className="hidden min-w-0 flex-1 items-center gap-1 lg:flex justify-end">
             {rightLinks.map((link) => (
               <NavLink key={link.id} link={link} />
             ))}
           </div>
+
+          <Link
+            href={routing.homeHref}
+            onClick={() => {
+              setActiveSection('home')
+              setIsMobileMenuOpen(false)
+            }}
+            className="flex items-center ml-3 lg:ml-4"
+          >
+            <div className="flex h-10 w-10 items-center justify-center overflow-hidden rounded-full bg-white/5 shadow-xl transition-all duration-300 hover:rotate-12">
+              <img src="/V2.svg" alt="Logo" className="h-full w-full object-contain" />
+            </div>
+          </Link>
 
           <button
             type="button"
